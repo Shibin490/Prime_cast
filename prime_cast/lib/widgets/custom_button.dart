@@ -83,107 +83,70 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final bool isLoading;
+  final Widget? icon; // ✅ Icon support
+  final double? fontSize;
+  final Color? textColor;
+  final Color? backgroundColor;
 
   const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.isLoading = false,
+    this.icon,
+    this.fontSize,
+    this.textColor,
+    this.backgroundColor,
   });
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 40.w,
+        width: 50.w,
         height: 5.h,
         child: ElevatedButton(
           onPressed: isLoading ? null : onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueAccent,
-            foregroundColor: Colors.white,
+            backgroundColor: backgroundColor ?? Colors.blueAccent,
+            foregroundColor: textColor ?? Colors.white,
             textStyle: TextStyle(
-              fontSize: 60.sp,
+              fontSize: fontSize ?? 15.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.3,
             ),
-            disabledBackgroundColor: Colors.blueAccent.withOpacity(0.5),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
-            elevation: 2,
-            shadowColor: Colors.blueAccent.withOpacity(0.5),
           ),
-
-          child: Center(
-            child:
-                isLoading
-                    ? SizedBox(
-                      width: 3.w,
-                      height: 3.w,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2,
-                      ),
-                    )
-                    : Text(
-                      text,
-                      style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.3,
-                      ),
+          child:
+              isLoading
+                  ? SizedBox(
+                    width: 3.w,
+                    height: 3.w,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2,
                     ),
-          ),
+                  )
+                  : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (icon != null) ...[icon!, SizedBox(width: 8)],
+                      Text(
+                        text,
+                        style: TextStyle(
+                          fontSize: fontSize ?? 15.sp,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.3,
+                          color: textColor ?? Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
         ),
       ),
     );
   }
 }
-
-// //  sign in button =====================================
-
-// class GoogleSignInButton extends StatelessWidget {
-//   final VoidCallback onTap;
-
-//   const GoogleSignInButton({Key? key, required this.onTap}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: Container(
-//         width: double.infinity,
-//         padding: EdgeInsets.symmetric(vertical: 1.5.h),
-//         decoration: BoxDecoration(
-//           color: const Color.fromARGB(255, 5, 14, 153),
-//           borderRadius: BorderRadius.circular(12),
-//           boxShadow: [
-//             BoxShadow(
-//               color: Colors.black26,
-//               blurRadius: 3,
-//               offset: Offset(0, 2),
-//             ),
-//           ],
-//         ),
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             // Image.asset(
-//             //   AppImages.googleLogo, // ✅ use your image path
-//             //   height: 3.h,
-//             // ),
-//             SizedBox(width: 3.w),
-//             Text(
-//               'Sign in with Google',
-//               style: TextStyle(
-//                 color: Colors.white,
-//                 fontSize: 13.sp,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

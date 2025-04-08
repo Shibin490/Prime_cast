@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:prime_cast/providers/login_user_provider.dart';
 import 'package:prime_cast/utils/validators.dart';
@@ -107,19 +109,20 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // SizedBox(height: 3.h),
-
-                  // GoogleSignInButton(
-                  //   onTap: () {
-                  //     // Add your Google Sign-In logic here
-                  //     print('Google Sign-In button tapped');
-                  //   },
-                  // ),
+                  SizedBox(height: 2.h),
                   CustomButton(
-                    text: 'sign in with Google',
+                    text: 'Sign in with Google',
                     onPressed: () {
                       print('Google Sign-In button tapped');
                     },
+                    icon: Image.asset(
+                      'assets/images/transparent-google-logo-google-logo-blue-circle-with-g-1710875323999.webp',
+                      width: 3.h,
+                      height: 3.h,
+                    ),
+                    backgroundColor: Colors.white,
+                    textColor: Colors.black,
+                    fontSize: 13.sp,
                   ),
                 ],
               ),
