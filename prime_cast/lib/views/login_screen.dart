@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:prime_cast/providers/login_user_provider.dart';
 import 'package:prime_cast/utils/validators.dart';
+import 'package:prime_cast/views/forget_password.dart';
 import 'package:prime_cast/widgets/text.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -76,7 +77,26 @@ class LoginScreen extends StatelessWidget {
                     hintText: 'Enter your email',
                     validator: Validators.validateEmail,
                   ),
-                  SizedBox(height: 4.h),
+                  Center(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPasswordPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontSize: 13.sp,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ),
+                  ),
                   CustomButton(
                     text: 'Sign In',
                     isLoading: userProvider.isLoading,
@@ -89,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('Login Successful!'),
-                                backgroundColor: Color(0xFFE50914),
+                                backgroundColor: Color.fromARGB(255, 4, 4, 77),
                               ),
                             );
                             // Navigate to next page
@@ -112,17 +132,27 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 2.h),
                   CustomButton(
                     text: 'Sign in with Google',
-                    onPressed: () {
-                      print('Google Sign-In button tapped');
-                    },
+                    onPressed: () {},
                     icon: Image.asset(
                       'assets/images/transparent-google-logo-google-logo-blue-circle-with-g-1710875323999.webp',
-                      width: 3.h,
-                      height: 3.h,
+                      width: 24,
+                      height: 24,
                     ),
                     backgroundColor: Colors.white,
                     textColor: Colors.black,
                     fontSize: 13.sp,
+                    borderRadius: 30,
+                    width: 50.w,
+                    height: 5.h,
+                  ),
+                  Center(
+                    child: TextButton(
+                      onPressed: () {
+                        print("sign up clicked");
+                        Navigator.pushNamed(context, '/signup');
+                      },
+                      child: Text("dont have account? sign up!!"),
+                    ),
                   ),
                 ],
               ),

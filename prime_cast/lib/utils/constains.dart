@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const gradient = [Color(0xFF7F00FF), Colors.black];
+  static const gradient = [Color.fromARGB(255, 14, 38, 176), Colors.black];
   static const white = Colors.white;
 }
 

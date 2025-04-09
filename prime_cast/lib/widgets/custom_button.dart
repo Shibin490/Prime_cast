@@ -78,15 +78,17 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
-
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final bool isLoading;
-  final Widget? icon; // ✅ Icon support
+  final Widget? icon;
   final double? fontSize;
   final Color? textColor;
   final Color? backgroundColor;
+  final double? borderRadius;
+  final double? width;
+  final double? height;
 
   const CustomButton({
     super.key,
@@ -97,14 +99,17 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.textColor,
     this.backgroundColor,
+    this.borderRadius,
+    this.width,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 50.w,
-        height: 5.h,
+        width: width ?? 50.w, // Default size if not provided
+        height: height ?? 5.h,
         child: ElevatedButton(
           onPressed: isLoading ? null : onPressed,
           style: ElevatedButton.styleFrom(
@@ -116,35 +121,29 @@ class CustomButton extends StatelessWidget {
               letterSpacing: 0.3,
             ),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(borderRadius ?? 8),
             ),
           ),
-          child:
-              isLoading
-                  ? SizedBox(
-                    width: 3.w,
-                    height: 3.w,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 2,
-                    ),
-                  )
-                  : Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (icon != null) ...[icon!, SizedBox(width: 8)],
-                      Text(
-                        text,
-                        style: TextStyle(
-                          fontSize: fontSize ?? 15.sp,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.3,
-                          color: textColor ?? Colors.white,
-                        ),
-                      ),
-                    ],
+          child: isLoading
+              ? SizedBox(
+                  width: 3.w,
+                  height: 3.w,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
                   ),
+                )
+              : Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (icon != null) ...[
+                      icon!,
+                      SizedBox(width: 8), // spacing between icon and text
+                    ],
+                    Text(text),
+                  ],
+                ),
         ),
       ),
     );
